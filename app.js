@@ -114,8 +114,9 @@ function changeQty(delta) {
  * Builds the customized WhatsApp message text and updates the live preview
  */
 function buildOrderMessage() {
-  const pack = document.getElementById("packSelect") ? document.getElementById("packSelect").value : "500g Regular Family Pack";
-  const qty = document.getElementById("quantityInput") ? document.getElementById("quantityInput").value : "1";
+  const packSelect = document.getElementById("packSelect");
+  const pack = packSelect ? packSelect.value : "500g Regular Family Pack (₹200)";
+  const qty = parseInt(document.getElementById("quantityInput") ? document.getElementById("quantityInput").value : "1", 10) || 1;
   const name = document.getElementById("custName") && document.getElementById("custName").value.trim() 
     ? document.getElementById("custName").value.trim() 
     : "[Your Name]";
@@ -129,18 +130,27 @@ function buildOrderMessage() {
     ? document.getElementById("custEmail").value.trim()
     : "";
 
+  // Price calculations based on Rs 400/kg
+  let unitPrice = 200;
+  if (pack.includes("100") || pack.includes("250g")) unitPrice = 100;
+  else if (pack.includes("400") || pack.includes("1 Kg") || pack.includes("1kg")) unitPrice = 400;
+  else if (pack.includes("Bulk")) unitPrice = 400;
+
+  let totalEstimated = unitPrice * qty;
   let emailLine = email ? `\n✉️ Email: ${email}` : "";
 
   return `Hello Anaiyan Traders,
 
 I would like to order fresh farm-made turmeric powder:
-🌿 Pack Size: ${pack}
+🌿 Pack: ${pack}
 📦 Quantity: ${qty} packet(s)
+💰 Product Total: ₹${totalEstimated} (Direct Farm Price)
+🚚 Delivery: Courier charges extra based on delivery address
 👤 Customer Name: ${name}
 📞 Customer Phone: ${phone}
 📍 Delivery Address: ${location}${emailLine}
 
-Please confirm order availability, total cost, and delivery payment details. Thank you!`;
+Please confirm order dispatch date, courier fee, and UPI payment details. Thank you!`;
 }
 
 /**
