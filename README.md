@@ -30,13 +30,8 @@ When you create the folder named `images` inside this project directory, save yo
 
 ---
 
-## 📱 How to Set Your WhatsApp Number
-Open [app.js](file:///home/boyz/Downloads/Anaiyan%20Traders/Anaiyan%20Traders%20Web%20Page/app.js) in your editor and update line 7:
-```javascript
-const BUSINESS_WHATSAPP_NUMBER = "919095076843"; 
-```
-The number is configured as `+91 9095076843` for WhatsApp ordering only.
-Replace `919876543210` with your actual phone number including country code (e.g. `91` followed by your 10-digit mobile number, with no plus sign or spaces).
+## 📱 WhatsApp Configuration
+The WhatsApp order builder in [app.js](file:///home/boyz/Downloads/Anaiyan%20Traders/Anaiyan%20Traders%20Web%20Page/app.js) is configured to send orders directly to the owner's WhatsApp.
 
 ---
 

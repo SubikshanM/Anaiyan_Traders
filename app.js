@@ -3,9 +3,10 @@
  * Interactive Client Script & WhatsApp Order Generator
  */
 
-// Configure your business WhatsApp phone number here (with country code, without '+' or spaces)
-// e.g., '919876543210' for an Indian phone number.
-const BUSINESS_WHATSAPP_NUMBER = "919095076843";
+// WhatsApp number configured for order routing (assembled dynamically to protect from web scrapers)
+const _c = "91";
+const _p = "9095076843";
+const BUSINESS_WHATSAPP_NUMBER = _c + _p;
 
 document.addEventListener("DOMContentLoaded", () => {
   // Set current year in footer
