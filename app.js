@@ -49,16 +49,30 @@ document.addEventListener("DOMContentLoaded", () => {
  * Handle pack selection from the product cards
  * Smoothly scrolls to the order form and selects the pack in dropdown
  */
-function selectPack(weight, price, packName) {
+function selectPack(weight, packName) {
   const packSelect = document.getElementById("packSelect");
   if (packSelect) {
-    // Find matching option or set value
+    const target = (packName || weight || "").toLowerCase();
+    
+    // Find matching option
     for (let i = 0; i < packSelect.options.length; i++) {
-      if (packSelect.options[i].value.includes(weight) || packSelect.options[i].text.includes(weight)) {
+      const optVal = packSelect.options[i].value.toLowerCase();
+      const optText = packSelect.options[i].text.toLowerCase();
+      
+      if (optVal.includes(target) || optText.includes(target) || 
+          (weight && (optVal.includes(weight.toLowerCase()) || optText.includes(weight.toLowerCase())))) {
         packSelect.selectedIndex = i;
         break;
       }
     }
+    
+    // Reset quantity to 1 when a new pack is chosen
+    const qtyInput = document.getElementById("quantityInput");
+    if (qtyInput) {
+      qtyInput.value = 1;
+    }
+
+    // Trigger update of live message preview
     updateOrderPreview();
   }
 
@@ -66,6 +80,18 @@ function selectPack(weight, price, packName) {
   const orderSection = document.getElementById("order");
   if (orderSection) {
     orderSection.scrollIntoView({ behavior: "smooth" });
+
+    // Visual highlight feedback on the order form
+    const formCard = document.querySelector(".order-form-card");
+    if (formCard) {
+      formCard.style.transition = "transform 0.3s ease, box-shadow 0.3s ease";
+      formCard.style.transform = "scale(1.02)";
+      formCard.style.boxShadow = "0 0 25px rgba(217, 119, 6, 0.4)";
+      setTimeout(() => {
+        formCard.style.transform = "none";
+        formCard.style.boxShadow = "";
+      }, 700);
+    }
   }
 }
 
