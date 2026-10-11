@@ -5,7 +5,7 @@
 
 // WhatsApp number configured for order routing (assembled dynamically to protect from web scrapers)
 const _c = "91";
-const _p = "9095076843";
+const _p = "7598063023";
 const BUSINESS_WHATSAPP_NUMBER = _c + _p;
 
 document.addEventListener("DOMContentLoaded", () => {
